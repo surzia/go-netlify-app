@@ -1,5 +1,5 @@
 # README
-![](logo.jpeg)
+![](static/logo.jpeg)
 
 Host a simple Go web application in Netlify
 
