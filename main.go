@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/apex/gateway"
 )
 
 var (
@@ -14,8 +16,18 @@ var (
 
 func main() {
 	flag.Parse()
+
 	http.HandleFunc("/api/feed", feed)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *port), nil))
+	listener := gateway.ListenAndServe
+	portStr := "n/a"
+
+	if *port != -1 {
+		portStr = fmt.Sprintf(":%d", *port)
+		listener = http.ListenAndServe
+		http.Handle("/", http.FileServer(http.Dir("./public")))
+	}
+
+	log.Fatal(listener(portStr, nil))
 }
 
 func feed(w http.ResponseWriter, r *http.Request) {
