@@ -32,7 +32,8 @@
                 link.innerText = item["target"]["title"];
                 row.append(link);
                 let d = new Date(item["target"]["created"]);
-                row.innerHTML += " " + toDate.format(d);
+                // timestamp in seconds 
+                row.innerHTML += " " + toDate.format(d*1000);
                 listEls.push(row);
             }
             let el = document.getElementById("contents");
