@@ -28,11 +28,15 @@
             for (let item of data["data"]) {
                 let row = document.createElement("li");
                 let link = document.createElement("a");
-                link.href = item["target"]["url"];
+                // link.href = item["target"]["url"];
+                // url can reach question: https://www.zhihu.com/question/581294229
+                // url:                    https://api.zhihu.com/questions/581294229
+                link.href =  "https://www.zhihu.com/question/"+item["target"]["id"];
                 link.innerText = item["target"]["title"];
                 row.append(link);
                 let d = new Date(item["target"]["created"]);
-                row.innerHTML += " " + toDate.format(d);
+                // timestamp in seconds 
+                row.innerHTML += " " + toDate.format(d*1000);
                 listEls.push(row);
             }
             let el = document.getElementById("contents");
